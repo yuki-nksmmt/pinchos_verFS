@@ -12,7 +12,7 @@ function drawTomatoFarmScene() {
   rect(1100, 550, 150, 150, 25);
   image(tomato, 1100, 550, 150, 150);
   image(turn, 50, 50, 100, 100);
-  if (vis_tomato) {
+  if (pickStack.includes(ingredients.tomato)) {
     image(batsu, 1100, 550, 150, 150);
   }
 }
@@ -24,7 +24,7 @@ function drawHatakeBScene() {
   rect(1100, 550, 150, 150, 25);
   image(olive, 1100, 550, 150, 150);
   image(turn, 50, 50, 100, 100);
-  if (vis_olive) {
+  if (pickStack.includes(ingredients.olive)) {
     image(batsu, 1100, 550, 150, 150);
   }
 }
@@ -36,7 +36,7 @@ function drawSeaScene() {
   rect(1100, 550, 150, 150, 25);
   image(saba, 1100, 550, 150, 150);
   image(turn, 50, 50, 100, 100);
-  if (vis_saba){
+  if (pickStack.includes(ingredients.saba)) {
     image(batsu, 1100, 550, 150, 150);
   }
 }

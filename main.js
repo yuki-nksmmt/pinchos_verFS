@@ -6,6 +6,12 @@
 //   sea: 3,
 // };
 // let sceneNumber = 0;
+const ingredients = {
+  saba: 0,
+  olive: 1,
+  tomato: 2
+};
+let pickStack = [];
 
 //-----------------map_image_def------------------------//
 ////window
@@ -27,12 +33,6 @@ let map_main = true;
 let map_sea = false;
 let map_hatakeA = false;
 let map_hatakeB = false;
-//-------------------------------------------------------//
-
-//-----------------item_visivle(on_pin)------------------//
-let vis_saba = false;
-let vis_tomato = false;
-let vis_olive = false;
 //-------------------------------------------------------//
 
 function setup() {
@@ -78,20 +78,23 @@ function draw() {
   } else if (map_sea) {
     drawSeaScene();
   }
-  //-----------------------------------------------------//
 
-  //---------------pick_visible--------------------------//
+  drawPick();
+}
+
+function drawPick() {
   image(pick,mouseX-150,mouseY-250,300,300);
-  if(vis_saba){
-    image(saba,mouseX-50,mouseY-200+50,100,100);
+  for (let i = 0; i < pickStack.length; i++) {
+    let x = mouseX - 50;
+    let y = mouseY - 200 + (50 * i);
+    if (pickStack[i] == ingredients.tomato) {
+      image(tomato, x, y, 100, 100);
+    } else if (pickStack[i] == ingredients.saba) {
+      image(saba, x, y, 100, 100);
+    } else if (pickStack[i] == ingredients.olive) {
+      image(olive, x, y, 100, 100);
+    }
   }
-  if(vis_tomato){
-    image(tomato,mouseX-50,mouseY-200+100,100,100);
-  }
-  if(vis_olive){
-    image(olive,mouseX-50,mouseY-200+150,100,100);
-  }
-  //-----------------------------------------------------//
 }
 
 function mousePressed(){
@@ -113,12 +116,10 @@ function mousePressed(){
   }
   //------------------Olive_farm----------------------//
   //restart
-  if (vis_tomato && vis_saba && vis_olive) {
+  if (pickStack.length == 3) {
     if (mouseX >= 640 && mouseX < 740 && mouseY >= 500 && mouseY < 600) {
-      vis_olive = false;
-      vis_saba = false;
-      vis_tomato = false;
       map_main = true;
+      pickStack = [];
     }
   }
 
@@ -133,7 +134,7 @@ function mousePressed(){
   if (map_sea && mouseX >= 1100 && mouseX < 1260 && mouseY >= 550 && mouseY < 700) {
     map_sea = false;
     map_main = true;
-    vis_saba = true;
+    pickStack.push(ingredients.saba);
   }
 
   //-----------------tomato_farm----------------------//
@@ -146,7 +147,7 @@ function mousePressed(){
   if (map_hatakeA && mouseX >= 1100 && mouseX < 1260 && mouseY >= 550 && mouseY < 700) {
     map_hatakeA = false;
     map_main = true;
-    vis_tomato = true;
+    pickStack.push(ingredients.tomato);
   }
 
   //-----------------olieve_farm---------------------//
@@ -159,6 +160,6 @@ function mousePressed(){
   if (map_hatakeB && mouseX >= 1100 && mouseX < 1260 && mouseY >= 550 && mouseY < 700) {
     map_hatakeB = false;
     map_main = true;
-    vis_olive = true;
+    pickStack.push(ingredients.olive);
   }
 }
